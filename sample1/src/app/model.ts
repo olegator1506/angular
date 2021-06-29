@@ -22,14 +22,14 @@ export class Cover {
 export class Feed {
     private _flag : boolean = false;
     constructor(
-        public uid? :number,
-        public type?:string,
-        public title? : string,
-        public description?:string,
-        public created?:string,
-        public modified?:string,
-        public cover?:Cover,
-        public tracks? : Array<Track> 
+        public uid :number,
+        public type:string,
+        public title : string,
+        public description:string,
+        public created:string,
+        public modified:string,
+        public cover:Cover,
+//        public tracks? : Array<Track> 
     ){
         this._flag = true;
     };     

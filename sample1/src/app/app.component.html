@@ -272,8 +272,34 @@
     width: 1920px;
   }
 
+  drag-scroll {
+      height: 500px;
+      width: 100%;
+  }
+  .playlist-image {
+    position	: relative;
+	  width		: 250px;
+  }
+  .playlist-title {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+	  position	: absolute;
+	  top		: 10px;
+	  left		: 0;
+	  width		: 100%;
+}
 
-  /* Responsive Styles */
+.playlist-description {
+	  position	: absolute;
+	  top		: 150px;
+    left		: 0;
+    width: 100%;
+    word-break: break-all;
+}
+
+
+/* Responsive Styles */
   @media screen and (max-width: 767px) {
 
     .card-container > *:not(.circle-link) ,
@@ -302,6 +328,8 @@
       visibility: hidden;
     }
   }
+
+
 </style>
 
 <!-- Toolbar -->
@@ -328,7 +356,13 @@
 </div>
 
 <div class="content" role="main">
-Hello, world!
+  <drag-scroll [scrollbar-hidden]="showScroll">
+    <div drag-scroll-item *ngFor="let feed of feeds" class="playlist-image">
+      <img src="{{feed.cover.uri}}">
+      <div class="playlist-title">{{feed.title}}</div>
+      <!-- <p class="playlist-description">{{feed.description}}</p> -->
+    </div>
+  </drag-scroll>
 
 </div>
 

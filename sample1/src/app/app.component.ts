@@ -12,6 +12,7 @@ import { YmService } from './ym.service';
 export class AppComponent {
   title = 'sample1';
   feeds : Feed[] = [];
+  showScroll : boolean = false;
   constructor (private ymServise : YmService){
   }
 
