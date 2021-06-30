@@ -357,9 +357,9 @@
 
 <div class="content" role="main">
   <drag-scroll [scrollbar-hidden]="showScroll">
-    <div drag-scroll-item *ngFor="let feed of feeds" class="playlist-image">
-      <img src="{{feed.cover.uri}}">
-      <div class="playlist-title">{{feed.title}}</div>
+    <div drag-scroll-item *ngFor="let pl of collection.feeds" class="playlist-image">
+      <img src="{{pl.cover.uri}}">
+      <div class="playlist-title">{{pl.title}}</div>
       <!-- <p class="playlist-description">{{feed.description}}</p> -->
     </div>
   </drag-scroll>

@@ -19,8 +19,7 @@ export class Cover {
        ){}
 }
 
-export class Feed {
-    private _flag : boolean = false;
+export class PlayList {
     constructor(
         public uid :number,
         public type:string,
@@ -28,12 +27,16 @@ export class Feed {
         public description:string,
         public created:string,
         public modified:string,
-        public cover:Cover,
-//        public tracks? : Array<Track> 
-    ){
-        this._flag = true;
-    };     
+        public trackCount:number,
+        public duration:number,
+        public cover:Cover
+    ){};     
 };
-export class Feeds {
-    constructor(public feeds : Feed[]){}
+
+export class Collection {
+    constructor(
+        public feeds? : PlayList[],
+        public landings? : PlayList[]
+    ){}
 }
+

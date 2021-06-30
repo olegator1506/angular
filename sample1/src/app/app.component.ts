@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Feed } from './model';
+import { Collection } from './model';
 import { YmService } from './ym.service';
 
 @Component({
@@ -11,15 +11,15 @@ import { YmService } from './ym.service';
 })
 export class AppComponent {
   title = 'sample1';
-  feeds : Feed[] = [];
+  collection : Collection = new Collection;
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
   }
 
   ngOnInit(){
-    this.ymServise.getFeeds().subscribe(
-      (data : Feed[])=>{
-        this.feeds = data;
+    this.ymServise.getCollection().subscribe(
+      (data : Collection)=>{
+        this.collection = data;
       });
   }
 
