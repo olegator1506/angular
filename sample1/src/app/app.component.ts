@@ -2,6 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Collection } from './model';
 import { YmService } from './ym.service';
+import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { YmService } from './ym.service';
 })
 export class AppComponent {
   title = 'sample1';
-  collection : Collection = new Collection;
+  collection : Collection = new Collection([],[],[]);
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
   }

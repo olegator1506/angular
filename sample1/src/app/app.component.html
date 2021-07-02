@@ -272,32 +272,7 @@
     width: 1920px;
   }
 
-  drag-scroll {
-      height: 500px;
-      width: 100%;
-  }
-  .playlist-image {
-    position	: relative;
-	  width		: 250px;
-  }
-  .playlist-title {
-    color: white;
-    font-size: large;
-    font-weight: bold;
-	  position	: absolute;
-	  top		: 10px;
-	  left		: 0;
-	  width		: 100%;
-}
-
-.playlist-description {
-	  position	: absolute;
-	  top		: 150px;
-    left		: 0;
-    width: 100%;
-    word-break: break-all;
-}
-
+  
 
 /* Responsive Styles */
   @media screen and (max-width: 767px) {
@@ -356,13 +331,8 @@
 </div>
 
 <div class="content" role="main">
-  <drag-scroll [scrollbar-hidden]="showScroll">
-    <div drag-scroll-item *ngFor="let pl of collection.feeds" class="playlist-image">
-      <img src="{{pl.cover.uri}}">
-      <div class="playlist-title">{{pl.title}}</div>
-      <!-- <p class="playlist-description">{{feed.description}}</p> -->
-    </div>
-  </drag-scroll>
+  <app-pl-collection [title]="'Рекомендации'" [collection]="collection.feeds"></app-pl-collection>
+  <app-pl-collection [title]="'Моя коллекция'" [collection]="collection.playlists"></app-pl-collection>
 
 </div>
 

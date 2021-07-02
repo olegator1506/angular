@@ -8,12 +8,16 @@ import {HttpClientModule} from '@angular/common/http';
 import { DragScrollModule } from 'ngx-drag-scroll';
 // Карточка
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlCollectionComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     DragScrollModule,
     MatCardModule,
+    MatIconModule,
     BrowserAnimationsModule
   ],
   providers: [],

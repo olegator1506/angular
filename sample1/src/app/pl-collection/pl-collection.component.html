@@ -1,0 +1,48 @@
+<style>
+  drag-scroll {
+      height: 250px;
+      width: 100%;
+  }
+  .playlist-image {
+    position	: relative;
+	  width		: 220px;
+  }
+  .playlist-title {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+	  position	: absolute;
+	  top		: 10px;
+	  left		: 0;
+	  width		: 100%;
+}
+
+.playlist-description {
+	  position	: absolute;
+	  top		: 150px;
+    left		: 0;
+    width: 100%;
+    word-break: break-all;
+}
+
+.playlist-button {
+	  position	: absolute;
+	  top : 70px;
+    left : 70px;
+    word-break: break-all;
+}
+
+</style>
+
+
+<h3>{{title}}</h3>
+<drag-scroll [scrollbar-hidden]="showScroll">
+  <div drag-scroll-item *ngFor="let pl of collection" class="playlist-image">
+    <img src="{{pl.cover.uri}}">
+    <div class="playlist-title">{{pl.title}}</div>
+    <!-- <p class="playlist-description">{{feed.description}}</p> -->
+    <button mat-mini-fab color="primary" title="Играть" class="playlist-button">
+      <mat-icon>list</mat-icon>
+    </button>
+  </div>
+</drag-scroll>

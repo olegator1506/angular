@@ -35,8 +35,9 @@ export class PlayList {
 
 export class Collection {
     constructor(
-        public feeds? : PlayList[],
-        public landings? : PlayList[]
+        public feeds : PlayList[],
+        public landings : PlayList[],
+        public playlists :PlayList[] 
     ){}
 }
 
