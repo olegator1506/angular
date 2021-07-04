@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Collection } from './model';
+import { Collection, YmData } from './model';
 import { YmService } from './ym.service';
 import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 
@@ -12,15 +12,15 @@ import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 })
 export class AppComponent {
   title = 'sample1';
-  collection : Collection = new Collection([],[],[]);
+  ymData : YmData = new YmData;
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
   }
 
   ngOnInit(){
-    this.ymServise.getCollection().subscribe(
-      (data : Collection)=>{
-        this.collection = data;
+    this.ymServise.getData().subscribe(
+      (data : YmData)=>{
+        this.ymData = data;
       });
   }
 

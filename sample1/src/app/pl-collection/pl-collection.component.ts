@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayList } from '../model';
+import { PlayList, Collection } from '../model';
+import { DragScrollModule } from 'ngx-drag-scroll';
 
 @Component({
   selector: 'app-pl-collection',
@@ -7,10 +8,8 @@ import { PlayList } from '../model';
   styleUrls: ['./pl-collection.component.scss']
 })
 export class PlCollectionComponent implements OnInit {
-  @Input("title")
-    title : string = "";
   @Input("collection")
-    collection : PlayList[] = [];  
+    entity : Collection = new Collection("",[]);  
 
   public showScroll : boolean = false;  
   constructor() { }

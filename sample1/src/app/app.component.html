@@ -331,9 +331,9 @@
 </div>
 
 <div class="content" role="main">
-  <app-pl-collection [title]="'Рекомендации'" [collection]="collection.feeds"></app-pl-collection>
-  <app-pl-collection [title]="'Моя коллекция'" [collection]="collection.playlists"></app-pl-collection>
-
+  <div *ngFor="let col of ymData.collections">
+    <app-pl-collection [collection]="col"></app-pl-collection>
+  </div>
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

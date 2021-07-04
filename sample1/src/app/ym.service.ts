@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Collection, Cover, PlayList} from './model';
+import {Collection, Cover, PlayList,YmData} from './model';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -48,13 +48,17 @@ export class YmService {
     } 
     return  new Cover(coverData.type, coverData.dir, coverData.version, coverData.custom, uri);
   }
-  getCollection(): Observable<Collection> {
-    return this.http.get(this.baseUrl).pipe(map((data : any) => {
+  getData(): Observable<YmData> {
+    var l = location;
+    var url : string  = `${location.protocol}//${location.hostname}:3000/collection`;
+    return this.http.get(url).pipe(map((data : any) => {
+      var result : YmData = new YmData();
       let pll : PlayList[] = [];
       data.playLists.forEach((el : any) => {
         pll.push(new PlayList(el.uid, "owned", el.title, "", el.created, el.modified, el.trackCount,el.durationMs,this._getCover(el)));
        });
-          var feeds : PlayList[] = [];
+      result.addCollection("Мои плейлисты",pll); 
+      var feeds : PlayList[] = [];
       data.feed.generatedPlaylists.forEach((el : any) => {
         feeds.push(new PlayList(
           el.data.uid,
@@ -67,9 +71,10 @@ export class YmService {
           el.data.durationMs,
           this._getCover(el.data)
       ));  
-    });
+     });
+     result.addCollection("Рекомендации",feeds);
 //    var landings : PlayList[] = this._parseLandings(data.landings); 
-    return new Collection(feeds,[],pll);
+      return result;
    }));
   }
 

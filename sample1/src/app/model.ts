@@ -32,12 +32,22 @@ export class PlayList {
         public cover:Cover
     ){};     
 };
-
+// Набор плейлистов (рекомендации, мои плейлисты и т.п.)
 export class Collection {
     constructor(
-        public feeds : PlayList[],
-        public landings : PlayList[],
-        public playlists :PlayList[] 
+        public title :string,
+        public playlists : PlayList[]
     ){}
+}
+
+export class YmData {
+    public collections : Array<Collection> = []; 
+    constructor(){}
+    addCollection(title:string,playlists: PlayList[]) : void{
+        this.collections.push(new Collection(title,playlists));
+    }
+    getCollection(num : number) : Collection {
+        return this.collections[num];
+    }
 }
 
