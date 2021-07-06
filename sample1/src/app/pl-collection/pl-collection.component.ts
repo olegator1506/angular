@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlayList, Collection } from '../model';
 import { DragScrollModule } from 'ngx-drag-scroll';
+import { YmService } from '../ym.service';
 
 @Component({
   selector: 'app-pl-collection',
@@ -12,8 +13,10 @@ export class PlCollectionComponent implements OnInit {
     entity : Collection = new Collection("",[]);  
 
   public showScroll : boolean = false;  
-  constructor() { }
-
+  constructor(private ymService : YmService) { }
+  openPlayList(playlist : PlayList) {
+    this.ymService.getPlayListContent(playlist.uid);
+  }
   ngOnInit(): void {
   }
 

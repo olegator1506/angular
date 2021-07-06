@@ -1,3 +1,5 @@
+
+
 export class Track {
     constructor(
         public id? : number,
@@ -29,8 +31,12 @@ export class PlayList {
         public modified:string,
         public trackCount:number,
         public duration:number,
-        public cover:Cover
-    ){};     
+        public cover:Cover,
+        public trackUids:number[]
+    ){
+
+    }; 
+    
 };
 // Набор плейлистов (рекомендации, мои плейлисты и т.п.)
 export class Collection {

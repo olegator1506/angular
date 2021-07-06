@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Collection, Cover, PlayList,YmData} from './model';
+import {Collection, Cover, PlayList,YmData,Track} from './model';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class YmService {
   private baseUrl:string = 'http://localhost:3000/collection';
   constructor(private http: HttpClient){ }
@@ -32,7 +29,8 @@ export class YmService {
           plData.modified,
           plData.trackCount,
           plData.durationMs,
-          cover
+          cover,
+          []
       ));  
      }); 
     });
@@ -55,11 +53,17 @@ export class YmService {
       var result : YmData = new YmData();
       let pll : PlayList[] = [];
       data.playLists.forEach((el : any) => {
-        pll.push(new PlayList(el.uid, "owned", el.title, "", el.created, el.modified, el.trackCount,el.durationMs,this._getCover(el)));
+        pll.push(new PlayList(el.uid, "owned", el.title, "", el.created, el.modified, el.trackCount,el.durationMs,this._getCover(el),[]));
        });
       result.addCollection("Мои плейлисты",pll); 
       var feeds : PlayList[] = [];
       data.feed.generatedPlaylists.forEach((el : any) => {
+           var tracks = el.data.tracks;
+           var trackUids : number[] = [];
+           tracks.forEach((element : any) => {
+             trackUids.push(element.id);
+           });
+           503646255
         feeds.push(new PlayList(
           el.data.uid,
           el.type,
@@ -69,13 +73,23 @@ export class YmService {
           el.data.modified,
           el.data.trackCount,
           el.data.durationMs,
-          this._getCover(el.data)
+          this._getCover(el.data),
+          trackUids
       ));  
      });
      result.addCollection("Рекомендации",feeds);
 //    var landings : PlayList[] = this._parseLandings(data.landings); 
       return result;
    }));
+  }
+
+  getPlayListContent(plUid : number) : Observable<Track[]> {
+    var url = `http://localhost:8000/responder.php?action=playlisttracks&playlist=${plUid}`;
+    return this.http.get(url).pipe(map((data : any)=>{
+      var result : Track[] = [];
+      result.push(new Track(1,"Song name","Artist",100000,"",""));
+      return result;
+    }));
   }
 
 }

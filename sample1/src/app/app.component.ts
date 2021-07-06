@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Collection, YmData } from './model';
+import { Collection, YmData, Track, PlayList } from './model';
 import { YmService } from './ym.service';
 import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 
@@ -12,6 +12,8 @@ import { PlCollectionComponent } from './pl-collection/pl-collection.component';
 })
 export class AppComponent {
   title = 'sample1';
+  public tracks : Track[] = [];
+  public tracksLoaded : boolean = false;
   ymData : YmData = new YmData;
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
@@ -23,5 +25,18 @@ export class AppComponent {
         this.ymData = data;
       });
   }
+
+  getPlaylistContent(playlist : PlayList) : void {
+    this.tracksLoaded = false;
+    this.tracks = [];
+    this.ymServise.getPlayListContent(playlist.uid).subscribe(
+      (data : Track[])=>{
+        this.tracks = data;
+        this.tracksLoaded = true;
+      });    
+  }    
+
+
+ 
 
 }
