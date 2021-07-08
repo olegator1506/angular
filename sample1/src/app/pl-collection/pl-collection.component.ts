@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayList, Collection } from '../model';
+import { PlayList, Collection,Track } from '../model';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { YmService } from '../ym.service';
 
@@ -13,9 +13,15 @@ export class PlCollectionComponent implements OnInit {
     entity : Collection = new Collection("",[]);  
 
   public showScroll : boolean = false;  
+  public tracks : Track[] = [];
   constructor(private ymService : YmService) { }
   openPlayList(playlist : PlayList) {
-    this.ymService.getPlayListContent(playlist.uid);
+    if(this.tracks.length == 0) {
+      this.ymService.getPlayListContent(playlist).subscribe(
+        (data : Track[])=>{
+          this.tracks = data;
+        });
+      }    
   }
   ngOnInit(): void {
   }

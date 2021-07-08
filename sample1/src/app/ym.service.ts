@@ -5,9 +5,9 @@ import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable()
 export class YmService {
-  private baseUrl:string = 'http://localhost:3000/collection';
+  private baseUrl:string = 'http://localhost:8000/responder.php';
   constructor(private http: HttpClient){ }
-
+/*
   private _parseLandings(data : any) : PlayList[]{
     let result : PlayList[] = [];
     data.forEach((land : any) => {
@@ -36,6 +36,49 @@ export class YmService {
     });
     return result;
   }
+*/
+  private _parseFeeds(data:any) : PlayList[] {
+    var result : PlayList[] = [];
+    data.generatedPlaylists.forEach((el : any) => {
+      var tracks = el.data.tracks;
+      var trackUids : number[] = [];
+      tracks.forEach((element : any) => {
+        trackUids.push(element.id);
+      });
+      result.push(new PlayList(
+        el.data.uid,
+        el.data.kind,
+        el.type,
+        el.data.title,
+        el.data.description,
+        el.data.created,
+        el.data.modified,
+        el.data.trackCount,
+        el.data.durationMs,
+        this._getCover(el.data),
+        trackUids
+      ));  
+    });
+    return result;
+  }
+
+  private _parseUserPlaylist(data:any) : PlayList[] {
+    var result : PlayList[] = [];
+    data.playLists.forEach((el : any) => {
+      result.push(new PlayList(el.uid,el.kind, "owned", el.title, "", el.created, el.modified, el.trackCount,el.durationMs,this._getCover(el),[]));
+    });
+    result.push(this._parseLikedTracks(data.likedTracks));
+    return result;
+  } 
+  
+  private _parseLikedTracks(data : any) : PlayList {
+    var trackIds : number[] = [];
+    data.tracks.forEach((el : any) => {
+      trackIds.push(el.id);
+    });
+    return new PlayList(data.uid, 0, 'likedTracks',"Избранные треки","То что мне нравится","","",trackIds.length, 0, new Cover(), trackIds);  
+  }
+
   private _getCover(data:any) : Cover {
     let coverData = data.cover;
     let uri = '';
@@ -48,46 +91,28 @@ export class YmService {
   }
   getData(): Observable<YmData> {
     var l = location;
-    var url : string  = `${location.protocol}//${location.hostname}:3000/collection`;
-    return this.http.get(url).pipe(map((data : any) => {
+    return this.http.get(this.baseUrl).pipe(map((data : any) => {
       var result : YmData = new YmData();
-      let pll : PlayList[] = [];
-      data.playLists.forEach((el : any) => {
-        pll.push(new PlayList(el.uid, "owned", el.title, "", el.created, el.modified, el.trackCount,el.durationMs,this._getCover(el),[]));
-       });
-      result.addCollection("Мои плейлисты",pll); 
-      var feeds : PlayList[] = [];
-      data.feed.generatedPlaylists.forEach((el : any) => {
-           var tracks = el.data.tracks;
-           var trackUids : number[] = [];
-           tracks.forEach((element : any) => {
-             trackUids.push(element.id);
-           });
-           503646255
-        feeds.push(new PlayList(
-          el.data.uid,
-          el.type,
-          el.data.title,
-          el.data.description,
-          el.data.created,
-          el.data.modified,
-          el.data.trackCount,
-          el.data.durationMs,
-          this._getCover(el.data),
-          trackUids
-      ));  
-     });
-     result.addCollection("Рекомендации",feeds);
+      result.addCollection("Избранное", this._parseUserPlaylist(data));
+      result.addCollection("Собрано для вас",this._parseFeeds(data.feed));
 //    var landings : PlayList[] = this._parseLandings(data.landings); 
       return result;
    }));
   }
 
-  getPlayListContent(plUid : number) : Observable<Track[]> {
-    var url = `http://localhost:8000/responder.php?action=playlisttracks&playlist=${plUid}`;
-    return this.http.get(url).pipe(map((data : any)=>{
+  getPlayListContent(playlist : PlayList) : Observable<Track[]> {
+
+    var url = `${this.baseUrl}?action=playlisttracks`;
+    var requestData = (playlist.trackUids.length == 0) ? {
+        type:playlist.type,
+        uid:playlist.uid,
+        kind:playlist.kind
+      } : {trackids:playlist.trackUids};
+    return this.http.post(url,requestData).pipe(map((data : any)=>{
       var result : Track[] = [];
-      result.push(new Track(1,"Song name","Artist",100000,"",""));
+      data.tracks.forEach((el : any) => {
+        result.push(new Track(el.id, el.title, el.artists[0].name,el.durationMs,el.coverUrl,el.ogImage));
+      });
       return result;
     }));
   }

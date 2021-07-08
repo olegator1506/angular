@@ -29,7 +29,7 @@ export class AppComponent {
   getPlaylistContent(playlist : PlayList) : void {
     this.tracksLoaded = false;
     this.tracks = [];
-    this.ymServise.getPlayListContent(playlist.uid).subscribe(
+    this.ymServise.getPlayListContent(playlist).subscribe(
       (data : Track[])=>{
         this.tracks = data;
         this.tracksLoaded = true;

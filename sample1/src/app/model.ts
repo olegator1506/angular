@@ -24,6 +24,7 @@ export class Cover {
 export class PlayList {
     constructor(
         public uid :number,
+        public kind :number,
         public type:string,
         public title : string,
         public description:string,
@@ -44,6 +45,9 @@ export class Collection {
         public title :string,
         public playlists : PlayList[]
     ){}
+    addPlaylist(pl : PlayList) {
+        this.playlists.push(pl);
+    }
 }
 
 export class YmData {
