@@ -12,12 +12,15 @@ import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PlCollectionComponent } from './pl-collection/pl-collection.component';
-
+import { TarckListModalComponent } from './tarck-list-modal/tarck-list-modal.component';
+// модальный диалог
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlCollectionComponent
+    PlCollectionComponent,
+    TarckListModalComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { PlCollectionComponent } from './pl-collection/pl-collection.component';
     DragScrollModule,
     MatCardModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
