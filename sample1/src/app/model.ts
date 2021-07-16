@@ -34,10 +34,7 @@ export class PlayList {
         public duration:number,
         public cover:Cover,
         public trackUids:number[]
-    ){
-
-    }; 
-    
+    ){}; 
 };
 // Набор плейлистов (рекомендации, мои плейлисты и т.п.)
 export class Collection {

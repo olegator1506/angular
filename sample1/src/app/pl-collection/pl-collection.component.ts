@@ -16,23 +16,29 @@ export class PlCollectionComponent implements OnInit {
 
   public showScroll : boolean = false;  
   public tracks : Track[] = [];
-  private _selectedPlayList : PlayList = new PlayList();
-  constructor(private dialog : MatDialog, private ymService : YmService) { }
+  private _selectedPlayList!: PlayList;
+  public get selectedPlayList(): PlayList {
+    return this._selectedPlayList;
+  }
+  public set selectedPlayList(value: PlayList) {
+    this._selectedPlayList = value;
+  }
+  constructor(private dialog : MatDialog, private ymService : YmService) {
+
+   }
   openPlayList(playlist : PlayList) {
-    this._selectedPlayList = playlist
-    if(this.tracks.length == 0) {
-      this.ymService.getPlayListContent(playlist).subscribe(
+    this._selectedPlayList = playlist;
+    this.ymService.getPlayListContent(playlist).subscribe(
         (data : Track[])=>{
           this.tracks = data;
           let dialog = this.dialog.open(
             TarckListModalComponent,
             {data:{
-              title:this.entity.title,
+              title:this._selectedPlayList.title,
               trackList:this.tracks
             }}
           );
         });
-      }    
   }
   ngOnInit(): void {
   }
