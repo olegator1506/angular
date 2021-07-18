@@ -37,7 +37,7 @@
 
 
 <drag-scroll [scrollbar-hidden]="showScroll">
-  <div drag-scroll-item *ngFor="let pl of entity.playlists" class="playlist-image">
+  <div drag-scroll-item *ngFor="let pl of entity.playlists" class="playlist-image" (click)="selectPlayList(pl)">
     <img src="{{pl.cover.uri}}">
     <div class="playlist-title">{{pl.title}}</div>
     <!-- <p class="playlist-description">{{feed.description}}</p> -->

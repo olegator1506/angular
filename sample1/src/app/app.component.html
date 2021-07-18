@@ -316,7 +316,7 @@
 <div layout="column" layout-fill ng-controller="MainCtrl as mc">
   <header>
     <div class="toolbar md-scroll-shrink" >
-      <app-player></app-player>
+      <app-player [tracks]="tracks" [tracknum]="selectedTrackNum"></app-player>
     </div>
   </header>
 
@@ -324,7 +324,7 @@
     <div ui-view>
       <div class="content" role="main">
         <div *ngFor="let col of ymData.collections">
-          <app-pl-collection [collection]="col"></app-pl-collection>
+          <app-pl-collection [collection]="col" (playListSelected)="playlistSelectHandler($event)"></app-pl-collection>
         </div>
       </div>
     </div>
