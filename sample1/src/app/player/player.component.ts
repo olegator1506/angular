@@ -1,6 +1,7 @@
 import { Component, OnInit,Input, Output, SimpleChange } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import { Track } from '../model';
+import { DacService} from '../dac.service';
 
 
 interface IChanges {tracks : Track[], tracknum:number};  
@@ -22,8 +23,8 @@ export class PlayerComponent implements OnInit {
   public playState :boolean = false;
   
 //  constructor(changeDetector : ChangeDetectorRef) { }
-  constructor() { }
-ngOnInit(): void {
+  constructor(private dacService : DacService) { }
+  ngOnInit(): void {
   }
   ngOnChanges(changes : IChanges) : void {
     if(changes.tracks != undefined) {
@@ -34,12 +35,16 @@ ngOnInit(): void {
   }
 
   handleTrackListChange() {
+    this.dacService.sendTracks(this.tracks).subscribe((response:any) =>{
+      
+    });
     if(this.tracks == undefined) return;
     if(this.tracks.length == 0) return;
     this.tracknum = 0;
     this.shuffle  = false;
     this.repeat = false;
     this.playState = true;
+    
    }
    playToggle(){
      if(this.playState)

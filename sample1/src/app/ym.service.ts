@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable()
 export class YmService {
-  private baseUrl:string = 'http://localhost:8000/responder.php';
+  private baseUrl:string = 'http://localhost:8080/responder.php';
   constructor(private http: HttpClient){ }
 /*
   private _parseLandings(data : any) : PlayList[]{
