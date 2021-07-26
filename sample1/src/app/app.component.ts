@@ -17,6 +17,7 @@ export class AppComponent {
   public tracksLoaded : boolean = false;
   public selectedPlaylist !: PlayList;
   public selectedTrackNum : number = -1;
+  public playListOwner : number = 0;
   ymData : YmData = new YmData;
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
@@ -43,6 +44,7 @@ export class AppComponent {
   playlistSelectHandler(playlist:PlayList){
     this.selectedPlaylist = playlist; 
     this.getPlaylistContent(playlist);
+    this.playListOwner = playlist.uid |0;
   }
 
 

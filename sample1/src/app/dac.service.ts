@@ -9,8 +9,8 @@ import {Observable} from 'rxjs';
 export class DacService {
   private baseUrl:string = 'http://localhost:8000/';
   constructor(private http: HttpClient) {}
-  sendTracks(tracks :Track[]) : Observable<any> {
+  sendTracks(tracks :Track[],owner:number = 0) : Observable<any> {
     let url = `${this.baseUrl}?cmd=player&op=loadplaylist`;
-    return this.http.post(url,{tracks:tracks});
+    return this.http.post(url,{tracks:tracks,owner:owner});
   }
 }

@@ -17,6 +17,8 @@ export class PlayerComponent implements OnInit {
     tracks : Track[] = []; 
   @Input("tracknum")
     tracknum : number = -1; 
+  @Input("owner")
+    owner : number = 0;  
   public message : string = '';
   public shuffle : boolean = false;
   public repeat : boolean = false;
@@ -35,7 +37,8 @@ export class PlayerComponent implements OnInit {
   }
 
   handleTrackListChange() {
-    this.dacService.sendTracks(this.tracks).subscribe((response:any) =>{
+    if(this.tracks.length == 0) return;
+    this.dacService.sendTracks(this.tracks,this.owner).subscribe((response:any) =>{
       
     });
     if(this.tracks == undefined) return;
