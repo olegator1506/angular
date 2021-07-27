@@ -2,11 +2,11 @@
   <button mat-mini-fab color="primary" title="Назад" [disabled]="tracknum < 1" (click)="prevTrack()">
     <mat-icon>fast_rewind</mat-icon>
   </button>
-  <button mat-mini-fab color="primary" title="{{playState ? 'Остановить':'Играть'}}" (click)="playToggle()" >
-    <mat-icon>{{playState ? 'pause':'play_arrow'}}</mat-icon>
+  <button mat-mini-fab color="primary" title="{{isPaused ? 'Играть':'Пауза'}}" (click)="playToggle()" >
+    <mat-icon>{{isPaused ? 'pause':'play_arrow'}}</mat-icon>
   </button>
   <button mat-mini-fab color="primary" title="Вперед" (click)="nextTrack()" *ngIf="tracknum < (tracks.length -1)">
     <mat-icon>fast_forward</mat-icon>
   </button>
 </div>
-{{message}}
+{{curTrackTitle}} - {{curTrackArtist}}

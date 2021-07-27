@@ -22,7 +22,10 @@ export class PlayerComponent implements OnInit {
   public message : string = '';
   public shuffle : boolean = false;
   public repeat : boolean = false;
-  public playState :boolean = false;
+  public isPaused :boolean = false;
+  public isPlaying : boolean = false;
+  public curTrackTitle : string = "";
+  public curTrackArtist : string = "";
   
 //  constructor(changeDetector : ChangeDetectorRef) { }
   constructor(private dacService : DacService) { }
@@ -39,35 +42,49 @@ export class PlayerComponent implements OnInit {
   handleTrackListChange() {
     if(this.tracks.length == 0) return;
     this.dacService.sendTracks(this.tracks,this.owner).subscribe((response:any) =>{
-      
+      this.play();
     });
     if(this.tracks == undefined) return;
     if(this.tracks.length == 0) return;
     this.tracknum = 0;
     this.shuffle  = false;
     this.repeat = false;
-    this.playState = true;
-    
    }
+   
    playToggle(){
-     if(this.playState)
-      this.pause();
-     else
-      this.play() 
+     if(!this.isPlaying) 
+      this.play();
+     else if(this.isPaused)
+      this.play();
+     else this.pause(); 
    }
+
    pause(){
-     this.playState = false;
+      this.dacService.sendCommand('pause').subscribe((response:any)=>{
+        this.updateStatus(response);
+      });
    }
    play(){
-    this.playState = true;
-   }
+    this.dacService.sendCommand('play').subscribe((response:any)=>{
+      this.updateStatus(response);
+    });
+
+  }
    prevTrack(){
      if(this.tracknum < 1) return;
      this.tracknum--;
+     
    }
    nextTrack(){
     if(this.tracknum == (this.tracks.length -1)) return;
     this.tracknum++;
+  }
+  updateStatus(response : any) {
+    let data : any = response.data; 
+    this.isPaused = data.is_paused;
+    this.isPlaying = data.is_playing;
+    this.curTrackTitle = data.track_title;
+    this.curTrackArtist = data.track_artist;
   }
  
 }
