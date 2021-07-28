@@ -8,5 +8,8 @@
   <button mat-mini-fab color="primary" title="Вперед" (click)="nextTrack()" *ngIf="tracknum < (tracks.length -1)">
     <mat-icon>fast_forward</mat-icon>
   </button>
+  &nbsp;
+  <span>{{curTrackTitle}}  - {{curTrackArtist}} </span>
+       
 </div>
-{{curTrackTitle}} - {{curTrackArtist}}
+

@@ -71,14 +71,19 @@ export class PlayerComponent implements OnInit {
 
   }
    prevTrack(){
-     if(this.tracknum < 1) return;
-     this.tracknum--;
+//     if(this.tracknum < 1) return;
+     this.dacService.sendCommand('prev').subscribe((response:any)=>{
+      this.updateStatus(response);
+    });
+     
      
    }
    nextTrack(){
-    if(this.tracknum == (this.tracks.length -1)) return;
-    this.tracknum++;
-  }
+//    if(this.tracknum == (this.tracks.length -1)) return;
+    this.dacService.sendCommand('next').subscribe((response:any)=>{
+      this.updateStatus(response);
+    });
+}
   updateStatus(response : any) {
     let data : any = response.data; 
     this.isPaused = data.is_paused;
