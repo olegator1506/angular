@@ -319,13 +319,15 @@
       <app-player [tracks]="tracks" [tracknum]="selectedTrackNum" [owner]="playListOwner"></app-player>
     </div>
   </header>
-
   <main flex>
     <div ui-view>
       <div class="content" role="main">
-        <div *ngFor="let col of ymData.collections">
-          <app-pl-collection [collection]="col" (playListSelected)="playlistSelectHandler($event)"></app-pl-collection>
-        </div>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading">
+          <div *ngFor="let col of ymData.collections">
+            <app-pl-collection [collection]="col" (playListSelected)="playlistSelectHandler($event)"></app-pl-collection>
+          </div>
+          </div>
       </div>
     </div>
   </main>

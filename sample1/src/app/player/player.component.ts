@@ -19,6 +19,7 @@ export class PlayerComponent implements OnInit {
     tracknum : number = -1; 
   @Input("owner")
     owner : number = 0;  
+  public plLoading : boolean = false;  
   public message : string = '';
   public shuffle : boolean = false;
   public repeat : boolean = false;
@@ -38,11 +39,17 @@ export class PlayerComponent implements OnInit {
     }
     
   }
-
+  listReady() : boolean {
+    return ((this.tracks.length > 0) && !this.plLoading);
+  }
   handleTrackListChange() {
     if(this.tracks.length == 0) return;
+    this.plLoading = true;
     this.dacService.sendTracks(this.tracks,this.owner).subscribe((response:any) =>{
+      this.plLoading = false;
       this.play();
+    },(response:any)=>{
+      this.plLoading = false;
     });
     if(this.tracks == undefined) return;
     if(this.tracks.length == 0) return;
@@ -60,7 +67,7 @@ export class PlayerComponent implements OnInit {
    }
 
    pause(){
-      this.dacService.sendCommand('pause').subscribe((response:any)=>{
+    this.dacService.sendCommand('pause').subscribe((response:any)=>{
         this.updateStatus(response);
       });
    }

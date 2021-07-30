@@ -1,4 +1,5 @@
 import { NgModule, Component } from '@angular/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { Collection, YmData, Track, PlayList } from './model';
 import { YmService } from './ym.service';
@@ -18,14 +19,17 @@ export class AppComponent {
   public selectedPlaylist !: PlayList;
   public selectedTrackNum : number = -1;
   public playListOwner : number = 0;
+  public loading : boolean = false;
   ymData : YmData = new YmData;
   showScroll : boolean = false;
   constructor (private ymServise : YmService){
   }
 
   ngOnInit(){
+    this.loading = true;
     this.ymServise.getData().subscribe(
       (data : YmData)=>{
+        this.loading = false;
         this.ymData = data;
       });
   }

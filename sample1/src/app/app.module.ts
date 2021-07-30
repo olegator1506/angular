@@ -26,6 +26,8 @@ import {MatTableModule} from '@angular/material/table';
 // Списки
 import {MatListModule} from '@angular/material/list';
 import { PlayerComponent } from './player/player.component';
+// Спиннер
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { PlayerComponent } from './player/player.component';
     MatButtonModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
