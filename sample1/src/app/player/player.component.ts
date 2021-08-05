@@ -2,6 +2,7 @@ import { Component, OnInit,Input, Output, SimpleChange } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import { Track } from '../model';
 import { DacService} from '../dac.service';
+//import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 interface IChanges {tracks : Track[], tracknum:number};  
@@ -27,6 +28,8 @@ export class PlayerComponent implements OnInit {
   public isPlaying : boolean = false;
   public curTrackTitle : string = "";
   public curTrackArtist : string = "";
+  public error : string = "";
+  public totalTracks : number = 0;
   
 //  constructor(changeDetector : ChangeDetectorRef) { }
   constructor(private dacService : DacService) { }
@@ -72,7 +75,9 @@ export class PlayerComponent implements OnInit {
       });
    }
    play(){
+    this.plLoading = true;
     this.dacService.sendCommand('play').subscribe((response:any)=>{
+      this.plLoading = false;
       this.updateStatus(response);
     });
 
@@ -89,6 +94,8 @@ export class PlayerComponent implements OnInit {
 //    if(this.tracknum == (this.tracks.length -1)) return;
     this.dacService.sendCommand('next').subscribe((response:any)=>{
       this.updateStatus(response);
+    },(err:any)=>{
+      this.showError(err.message);
     });
 }
   updateStatus(response : any) {
@@ -97,6 +104,10 @@ export class PlayerComponent implements OnInit {
     this.isPlaying = data.is_playing;
     this.curTrackTitle = data.track_title;
     this.curTrackArtist = data.track_artist;
+    this.tracknum = data.track_num;
+    this.totalTracks = data.total_tracks;
   }
- 
+  showError(errmess :string) :void {
+    this.error = errmess;
+  }
 }

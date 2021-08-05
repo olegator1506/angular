@@ -28,7 +28,8 @@ import {MatListModule} from '@angular/material/list';
 import { PlayerComponent } from './player/player.component';
 // Спиннер
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+// SnackBar
+//import {MatSnackBar} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatButtonToggleModule,
     MatCheckboxModule,
     MatBottomSheetModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+//    MatSnackBar
   ],
   providers: [],
   bootstrap: [AppComponent]

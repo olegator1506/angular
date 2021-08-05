@@ -1,4 +1,5 @@
 <mat-spinner layout-align="center center" *ngIf="plLoading" [diameter]="50" [color]="'white'"></mat-spinner> 
+<div class="alert" *ngIf="error">{{error}}</div> 
 <div layout="row"  flex *ngIf="listReady()">
   <button mat-mini-fab color="primary" title="Назад" [disabled]="tracknum < 1" (click)="prevTrack()">
     <mat-icon>fast_rewind</mat-icon>
@@ -10,5 +11,5 @@
     <mat-icon>fast_forward</mat-icon>
   </button>
   &nbsp;
-  <span>{{curTrackTitle}}  - {{curTrackArtist}} </span>
+  <span> {{tracknum + 1}} / {{totalTracks}}. {{curTrackTitle}}  - {{curTrackArtist}} </span>
 </div>
