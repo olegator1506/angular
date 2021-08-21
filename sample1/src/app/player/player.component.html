@@ -1,15 +1,23 @@
-<mat-spinner layout-align="center center" *ngIf="plLoading" [diameter]="50" [color]="'white'"></mat-spinner> 
+<mat-spinner fxLayout="row" *ngIf="plLoading" [diameter]="50" [color]="'white'"></mat-spinner> 
 <div class="alert" *ngIf="error">{{error}}</div> 
-<div layout="row"  flex *ngIf="listReady()">
-  <button mat-mini-fab color="primary" title="Назад" [disabled]="tracknum < 1" (click)="prevTrack()">
-    <mat-icon>fast_rewind</mat-icon>
-  </button>
-  <button mat-mini-fab color="primary" title="{{isPaused ? 'Играть':'Пауза'}}" (click)="playToggle()" >
-    <mat-icon>{{isPaused ? 'pause':'play_arrow'}}</mat-icon>
-  </button>
-  <button mat-mini-fab color="primary" title="Вперед" (click)="nextTrack()" *ngIf="tracknum < (tracks.length -1)">
-    <mat-icon>fast_forward</mat-icon>
-  </button>
-  &nbsp;
-  <span> {{tracknum + 1}} / {{totalTracks}}. {{curTrackTitle}}  - {{curTrackArtist}} </span>
-</div>
+<!-- <div fxLayout="row"  *ngIf="listReady()"> -->
+  <div fxLayout="row" fxFlexAlign="center" fxLayoutGap="10px">
+    <div fxFlex="50">
+      <button  class="player-button" mat-mini-fab color="primary" title="Назад" [disabled]="tracknum < 1" (click)="prevTrack()">
+        <mat-icon>fast_rewind</mat-icon>
+      </button>
+      <button class="player-button" mat-mini-fab color="primary" title="{{isPaused ? 'Играть':'Пауза'}}" (click)="playToggle()" >
+        <mat-icon>{{isPaused ? 'pause':'play_arrow'}}</mat-icon>
+      </button>
+      <button class="player-button" mat-mini-fab color="primary" title="Вперед" (click)="nextTrack()" *ngIf="tracknum < (tracks.length -1)">
+        <mat-icon>fast_forward</mat-icon>
+      </button>
+    </div>
+    <div fxFlex="200">
+      <span > {{tracknum + 1}} / {{totalTracks}}. {{curTrackTitle}}  - {{curTrackArtist}} </span>
+    </div>
+    <div fxFlex="200">
+      Other text xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    </div>
+
+  </div>

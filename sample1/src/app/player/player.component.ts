@@ -26,10 +26,10 @@ export class PlayerComponent implements OnInit {
   public repeat : boolean = false;
   public isPaused :boolean = false;
   public isPlaying : boolean = false;
-  public curTrackTitle : string = "";
-  public curTrackArtist : string = "";
+  public curTrackTitle : string = "Track name";
+  public curTrackArtist : string = "Artist";
   public error : string = "";
-  public totalTracks : number = 0;
+  public totalTracks : number = 10;
   
 //  constructor(changeDetector : ChangeDetectorRef) { }
   constructor(private dacService : DacService) { }
