@@ -1,0 +1,30 @@
+ 
+<ul ngbNav #nav="ngbNav"  class="nav nav-tabs justify-content-center">
+    <div #jqxWidget style="height: 300px;">
+        <jqxMenu #menuReference [width]="getWidth()" [height]="30">
+          <ul>
+            <li>
+              Сети и компьютеры
+              <ul style="width: 250px;">
+                <li><a href="#/topology">Топология</a></li>
+                <li><a href="#/topology-new">Топология новая</a></li>
+                <li><a href="#/hostlist">Список узлов</a></li>
+                <li><a href="#/pingmon">Ping монитор</a></li>
+                <li><a href="#/speed-test">Тест скорости</a></li>
+                <li type="separator"></li>
+                <li><a href="#/netflow">NetFlows</a></li>
+                <li><a href="#/flow-chart">Traffic cahrts</a></li>
+              </ul>
+            </li>
+            <li>
+              Прокси сервер
+              <ul>
+                <li><a href="#/squid-status">Состояние</a></li>
+                <li><a href="#/squid-clients">Клиенты</a></li>
+                <li><a href="#/squid-requests">Активные запросы</a></li>
+              </ul>
+            </li>
+          </ul>
+        </jqxMenu>
+      </div>
+</ul>
